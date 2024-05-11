@@ -55,6 +55,7 @@ jobs:
     deploy_xc:
         name: "f5xc deploy"
         runs-on: ubuntu-latest
+        needs: deploy_app
         defaults:
           run:
               working-directory: ./f5xc
