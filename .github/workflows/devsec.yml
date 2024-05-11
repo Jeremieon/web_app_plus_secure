@@ -1,0 +1,19 @@
+
+
+
+ - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_XC_CREDENTIALS"
+              }
+            }
+          }
+          EOF
