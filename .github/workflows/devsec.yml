@@ -72,15 +72,16 @@ jobs:
             run: |
               cat > backend.tf << EOF
               terraform { 
-                  cloud {
+                cloud {
                   organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
                   workspaces {
-                      name = "${{ secrets.TF_CLOUD_WORKSPACE_F5XC }}"
+                    name = "${{ secrets.TF_CLOUD_WORKSPACE_F5XC }}"
                   }
-                  }
-                  EOF
-                  echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
-
+                }
+              }
+              EOF
+              echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+      
           - name: Terraform Init
             id: init
             run: terraform init
