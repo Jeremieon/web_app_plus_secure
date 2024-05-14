@@ -8,6 +8,7 @@ user_data = <<-EOT
                 sudo apt-get install -y docker.io
                 sudo systemctl start docker
                 sudo docker pull jeremy9k/tanto
+                sudo sed -i "s/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = ['*']/g" settings.py
                 sudo docker run -d -p 80:8000 jeremy9k/tanto
                 EOT
 instance_name = "my-web-shop"
