@@ -80,21 +80,22 @@ jobs:
                   }
                   EOF
                   echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
-                  - name: Terraform Init
-                  id: init
-                  run: terraform init
-                
-                - name: Terraform Validate
-                  id: validate
-                  run: terraform validate -no-color
-                  
-                - name: Terraform Plan
-                  run: terraform plan
-        
-                - name: Terraform Apply
-                  if: github.event_name == 'push' && contains(github.event.head_commit.message, 'deploy')
-                  run: terraform apply -auto-approve
 
-                - name: Terraform Destroy
-                if: github.event_name == 'push' && contains(github.event.head_commit.message, 'destroy')
-                run: terraform destroy -auto-approve
+          - name: Terraform Init
+            id: init
+            run: terraform init
+            
+          - name: Terraform Validate
+            id: validate
+            run: terraform validate -no-color
+
+          - name: Terraform Plan
+            run: terraform plan
+    
+          - name: Terraform Apply
+            if: github.event_name == 'push' && contains(github.event.head_commit.message, 'deploy')
+            run: terraform apply -auto-approve
+
+          - name: Terraform Destroy
+            if: github.event_name == 'push' && contains(github.event.head_commit.message, 'destroy')
+            run: terraform destroy -auto-approve
