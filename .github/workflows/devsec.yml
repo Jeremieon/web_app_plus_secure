@@ -80,7 +80,7 @@ jobs:
                 }
               }
               EOF
-              echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+              echo '${{secrets.XC_API_P12_FILE}}' | base64 -d > api.p12
       
           - name: Terraform Init
             id: init
